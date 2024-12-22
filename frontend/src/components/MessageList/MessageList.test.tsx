@@ -12,7 +12,7 @@ vi.mock('@hooks/useMessages');
 describe('MessageList', () => {
   const mockMessages = [
     {
-      id: '1',
+      id: 1,
       type: 'INFORMATION' as MessageType,
       content: 'Test message 1',
       applicationName: 'Test App 1',
@@ -20,7 +20,7 @@ describe('MessageList', () => {
       timestamp: '2024-01-01T00:00:00Z',
     },
     {
-      id: '2',
+      id: 2,
       type: 'WARNING' as MessageType,
       content: 'Test message 2',
       applicationName: 'Test App 2',
