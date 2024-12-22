@@ -5,7 +5,7 @@ import MessageCard from './MessageCard';
 
 describe('MessageCard', () => {
   const mockMessage = {
-    id: '1',
+    id: 123,
     type: 'INFORMATION' as const,
     content: 'Test message content',
     applicationName: 'Test App',
