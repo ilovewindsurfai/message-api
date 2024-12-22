@@ -12,7 +12,7 @@ describe('MessageFilters', () => {
   });
 
   it('renders all filter inputs', () => {
-    const filters = { type: 'WARNING', active: true, applicationName: 'Test App' };
+    const filters = { type: 'WARNING' as MessageType, active: true, applicationName: 'Test App' };
     render(
       <MessageFilters
         filters={filters}
