@@ -1,0 +1,25 @@
+.message-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.message-list-loading,
+.message-list-error,
+.message-list-empty {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.message-list-error {
+    color: #dc3545;
+}
+
+@media (max-width: 768px) {
+    .message-list {
+        grid-template-columns: 1fr;
+    }
+}

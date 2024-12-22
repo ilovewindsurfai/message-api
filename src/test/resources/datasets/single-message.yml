@@ -1,0 +1,6 @@
+message:
+  - id: 1
+    type: "INFORMATION"
+    application_name: "test-app"
+    active: true
+    content: "Test message content"
