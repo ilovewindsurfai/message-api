@@ -1,37 +1,40 @@
-import { Message, MessageType } from '../types/Message';
+import { Message, MessageType } from '@types/Message';
+import httpService from '@services/httpService';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+interface MessageFilters {
+    type?: MessageType;
+    active?: boolean;
+    applicationName?: string;
+}
 
-export const messageService = {
-    getAllMessages: async (): Promise<Message[]> => {
-        const response = await fetch(`${API_BASE_URL}/messages`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch messages');
+const messageService = {
+    async getMessages(filters: MessageFilters = {}): Promise<Message[]> {
+        const params = new URLSearchParams();
+        
+        if (filters.type) {
+            params.append('type', filters.type);
         }
-        return response.json();
+        if (filters.active !== undefined) {
+            params.append('active', filters.active.toString());
+        }
+        if (filters.applicationName) {
+            params.append('applicationName', filters.applicationName);
+        }
+
+        return httpService.get<Message[]>('/messages', params);
     },
 
-    getMessagesByType: async (type: MessageType): Promise<Message[]> => {
-        const response = await fetch(`${API_BASE_URL}/messages/type/${type}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch messages of type ${type}`);
-        }
-        return response.json();
+    async createMessage(message: Omit<Message, 'id'>): Promise<Message> {
+        return httpService.post<Message>('/messages', message);
     },
 
-    getMessagesByActive: async (active: boolean): Promise<Message[]> => {
-        const response = await fetch(`${API_BASE_URL}/messages/active/${active}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch ${active ? 'active' : 'inactive'} messages`);
-        }
-        return response.json();
+    async updateMessage(id: string, message: Partial<Message>): Promise<Message> {
+        return httpService.put<Message>(`/messages/${id}`, message);
     },
 
-    getMessagesByApplication: async (applicationName: string): Promise<Message[]> => {
-        const response = await fetch(`${API_BASE_URL}/messages/application/${applicationName}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch messages for application ${applicationName}`);
-        }
-        return response.json();
+    async deleteMessage(id: string): Promise<void> {
+        return httpService.delete<void>(`/messages/${id}`);
     }
 };
+
+export default messageService;

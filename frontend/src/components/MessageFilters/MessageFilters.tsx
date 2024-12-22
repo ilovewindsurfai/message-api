@@ -1,7 +1,7 @@
 import React from 'react';
-import { MessageType } from '../../types/Message';
-import { useMessageFilters } from '../../hooks/useMessageFilters';
-import './MessageFilters.css';
+import { useMessageFilters } from '@hooks/useMessageFilters';
+import '@components/MessageFilters/MessageFilters.css';
+import { MessageType } from '@/types/Message';
 
 interface MessageFiltersProps {
     onFiltersChange: (filters: {
@@ -45,10 +45,12 @@ const MessageFilters: React.FC<MessageFiltersProps> = ({ onFiltersChange }) => {
     };
 
     return (
-        <div className="message-filters">
-            <div className="filter-group">
-                <label>Message Type:</label>
+        <form className="message-filters">
+            <div className="form-group">
+                <label htmlFor="type-filter">Message Type:</label>
                 <select
+                    id="type-filter"
+                    className="form-control"
                     value={filters.type || ''}
                     onChange={(e) => handleTypeChange(e.target.value as MessageType || undefined)}
                 >
@@ -59,9 +61,11 @@ const MessageFilters: React.FC<MessageFiltersProps> = ({ onFiltersChange }) => {
                 </select>
             </div>
 
-            <div className="filter-group">
-                <label>Status:</label>
+            <div className="form-group">
+                <label htmlFor="active-filter">Status:</label>
                 <select
+                    id="active-filter"
+                    className="form-control"
                     value={filters.active === undefined ? '' : String(filters.active)}
                     onChange={(e) => {
                         const value = e.target.value;
@@ -74,20 +78,26 @@ const MessageFilters: React.FC<MessageFiltersProps> = ({ onFiltersChange }) => {
                 </select>
             </div>
 
-            <div className="filter-group">
-                <label>Application:</label>
+            <div className="form-group">
+                <label htmlFor="application-filter">Application:</label>
                 <input
                     type="text"
+                    id="application-filter"
+                    className="form-control"
+                    placeholder="Filter by application"
                     value={filters.applicationName || ''}
                     onChange={(e) => handleApplicationChange(e.target.value || undefined)}
-                    placeholder="Filter by application"
                 />
             </div>
 
-            <button className="reset-filters" onClick={handleReset}>
+            <button
+                type="button"
+                className="btn btn-secondary btn-block"
+                onClick={handleReset}
+            >
                 Reset Filters
             </button>
-        </div>
+        </form>
     );
 };
 
