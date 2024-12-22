@@ -1,5 +1,0 @@
-com/example/messageapi/MessageApiApplication.class
-com/example/messageapi/model/Message.class
-com/example/messageapi/service/MessageService.class
-com/example/messageapi/repository/MessageRepository.class
-com/example/messageapi/controller/MessageController.class
