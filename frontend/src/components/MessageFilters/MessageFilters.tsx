@@ -4,16 +4,17 @@ import '@components/MessageFilters/MessageFilters.css';
 import { MessageType } from '@/types/Message';
 
 interface MessageFiltersProps {
-    onFiltersChange: (filters: {
+    filters: {
         type?: MessageType;
         active?: boolean;
         applicationName?: string;
-    }) => void;
+    };
+    onFilterChange: (newFilters: { type?: MessageType; active?: boolean; applicationName?: string }) => void;
+    children?: React.ReactNode;
 }
 
-const MessageFilters: React.FC<MessageFiltersProps> = ({ onFiltersChange }) => {
+const MessageFilters: React.FC<MessageFiltersProps> = ({ filters, onFilterChange, children }) => {
     const {
-        filters,
         setTypeFilter,
         setActiveFilter,
         setApplicationFilter,
@@ -22,22 +23,22 @@ const MessageFilters: React.FC<MessageFiltersProps> = ({ onFiltersChange }) => {
 
     const handleTypeChange = (type: MessageType | undefined) => {
         setTypeFilter(type);
-        onFiltersChange({ ...filters, type });
+        onFilterChange({ ...filters, type });
     };
 
     const handleActiveChange = (active: boolean | undefined) => {
         setActiveFilter(active);
-        onFiltersChange({ ...filters, active });
+        onFilterChange({ ...filters, active });
     };
 
     const handleApplicationChange = (applicationName: string | undefined) => {
         setApplicationFilter(applicationName);
-        onFiltersChange({ ...filters, applicationName });
+        onFilterChange({ ...filters, applicationName });
     };
 
     const handleReset = () => {
         resetFilters();
-        onFiltersChange({
+        onFilterChange({
             type: undefined,
             active: undefined,
             applicationName: undefined
@@ -97,6 +98,7 @@ const MessageFilters: React.FC<MessageFiltersProps> = ({ onFiltersChange }) => {
             >
                 Reset Filters
             </button>
+            {children}
         </form>
     );
 };
